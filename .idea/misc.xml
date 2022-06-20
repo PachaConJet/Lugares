@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/7cuatri/Dispositivos Moviles/Lugares/app/src/main/res/drawable/ic_baseline_local_phone_24.xml" value="0.2185" />
+        <entry key="..\:/7cuatri/Dispositivos Moviles/Lugares/app/src/main/res/drawable/ic_delete.xml" value="0.152" />
+        <entry key="..\:/7cuatri/Dispositivos Moviles/Lugares/app/src/main/res/drawable/ic_location.xml" value="0.2185" />
         <entry key="..\:/7cuatri/Dispositivos Moviles/Lugares/app/src/main/res/drawable/ic_logoff.xml" value="0.1" />
         <entry key="..\:/7cuatri/Dispositivos Moviles/Lugares/app/src/main/res/layout/activity_main.xml" value="0.275" />
         <entry key="..\:/7cuatri/Dispositivos Moviles/Lugares/app/src/main/res/layout/activity_principal.xml" value="0.275" />
@@ -15,6 +18,7 @@
         <entry key="..\:/7cuatri/Dispositivos Moviles/Lugares/app/src/main/res/layout/fragment_update_lugar.xml" value="0.275" />
         <entry key="..\:/7cuatri/Dispositivos Moviles/Lugares/app/src/main/res/layout/lugar_fila.xml" value="0.4" />
         <entry key="..\:/7cuatri/Dispositivos Moviles/Lugares/app/src/main/res/menu/activity_main_drawer.xml" value="0.275" />
+        <entry key="..\:/7cuatri/Dispositivos Moviles/Lugares/app/src/main/res/menu/delete_menu.xml" value="0.27395833333333336" />
         <entry key="..\:/7cuatri/Dispositivos Moviles/Lugares/app/src/main/res/menu/principal.xml" value="0.2713541666666667" />
       </map>
     </option>
