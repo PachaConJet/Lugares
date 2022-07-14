@@ -153,7 +153,7 @@ class UpdateLugarFragment : Fragment() {
             val lugar= Lugar(args.lugar.id,nombre,correo,telefono,web,0.0,
                 0.0,0.0,"","")
 
-            lugarViewModel.updateLugar(lugar)
+            lugarViewModel.saveLugar(lugar)
 
             Toast.makeText(requireContext(),getString(R.string.msg_lugar_update),Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_updateLugarFragment_to_nav_lugar)

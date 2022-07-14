@@ -1,8 +1,10 @@
 package com.lugares.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.*
-import com.lugares.data.LugarDatabase
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.lugares.data.LugarDao
 import com.lugares.model.Lugar
 import com.lugares.repository.LugarRepository
 import kotlinx.coroutines.Dispatchers
@@ -10,30 +12,20 @@ import kotlinx.coroutines.launch
 
 class LugarViewModel (application: Application): AndroidViewModel(application) {
 
-    //Atributo para acceder al repositorio de Lugar
-    private val repository: LugarRepository
-
     //Atributo pra obtener la lista de luares en un ArrayList especial
-    val getAllData: LiveData<List<Lugar>>
+    val getAllData: MutableLiveData<List<Lugar>>
+    //Atributo para acceder al repositorio de Lugar
+    private val repository: LugarRepository = LugarRepository(LugarDao())
 
     //Bloque de inicializacion de los atributos
-    init {
-        val lugarDao =  LugarDatabase.getDataBase(application).lugarDao()
-        repository = LugarRepository(lugarDao)
-        getAllData = repository.getAllData
-    }
+    init {  getAllData = repository.getAllData }
 
-    fun addLugar(lugar: Lugar){
+    fun saveLugar(lugar: Lugar){
         viewModelScope.launch(Dispatchers.IO){
-            repository.addLugar(lugar)
+            repository.saveLugar(lugar)
         }
     }
 
-    fun updateLugar(lugar: Lugar){
-        viewModelScope.launch(Dispatchers.IO){
-            repository.updateLugar(lugar)
-        }
-    }
     fun deleteLugar(lugar: Lugar){
         viewModelScope.launch(Dispatchers.IO){
             repository.deleteLugar(lugar)

@@ -18,13 +18,14 @@ class LugarAdapter : RecyclerView.Adapter<LugarAdapter.LugarViewHolder>() {
             itemBinding.tvCorreo.text = lugar.correo
             itemBinding.tvTelefono.text = lugar.telefono
             itemBinding.tvWeb.text = lugar.web
-            itemBinding.vistaFila.setOnClickListener{
+            itemBinding.vistaFila.setOnClickListener {
                 val accion = LugarFragmentDirections
                     .actionNavLugarToUpdateLugarFragment(lugar)
                 itemView.findNavController().navigate(accion)
             }
         }
-    }
+        }
+
     //Acá se va a crear una "cajita" del reciclador...  una fila... sólo la estructura
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LugarViewHolder {
         val itemBinding =
