@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.lugares.R
 import com.lugares.databinding.FragmentUpdateLugarBinding
 import com.lugares.model.Lugar
@@ -27,6 +29,9 @@ class UpdateLugarFragment : Fragment() {
     private var _binding: FragmentUpdateLugarBinding? = null
     private val binding get() = _binding!!
     private lateinit var lugarViewModel: LugarViewModel
+
+    private lateinit var mediaPlayer:MediaPlayer
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,7 +50,32 @@ class UpdateLugarFragment : Fragment() {
         binding.tvAltura.text=args.lugar.latitud.toString()
         binding.tvAltura.text=args.lugar.longitud.toString()
 
-        binding.btActualizar.setOnClickListener {
+        //Se trabaja el audio
+        if(args.lugar.rutaAudio?.isNotEmpty()==true){
+            //Hay una ruta de un audio....
+            mediaPlayer = MediaPlayer()
+            mediaPlayer.setDataSource(args.lugar.rutaAudio)
+            mediaPlayer.prepare()
+            binding.btPlay.isEnabled = true
+        }else{
+            //No hay ruta de audio
+            binding.btPlay.isEnabled = false
+        }
+
+        //Hace que suene el audio....
+        binding.btPlay.setOnClickListener{mediaPlayer.start()}
+
+        //Se trabaja el imagen
+        if(args.lugar.rutaImagen?.isNotEmpty()==true) {
+            //Hay una ruta de un imagen....
+            Glide.with(requireContext())
+                .load(args.lugar.rutaImagen)
+                .fitCenter()
+                .into(binding.imagen)
+        }
+
+
+        binding.btUpdateLugar.setOnClickListener {
             updateLugar()
         }
 
@@ -153,7 +183,7 @@ class UpdateLugarFragment : Fragment() {
             val lugar= Lugar(args.lugar.id,nombre,correo,telefono,web,0.0,
                 0.0,0.0,"","")
 
-            lugarViewModel.saveLugar(lugar)
+            lugarViewModel.updateLugar(lugar)
 
             Toast.makeText(requireContext(),getString(R.string.msg_lugar_update),Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_updateLugarFragment_to_nav_lugar)

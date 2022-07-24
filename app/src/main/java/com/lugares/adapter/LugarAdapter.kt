@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.lugares.databinding.LugarFilaBinding
 import com.lugares.model.Lugar
 import com.lugares.ui.lugar.LugarFragmentDirections
@@ -18,14 +19,19 @@ class LugarAdapter : RecyclerView.Adapter<LugarAdapter.LugarViewHolder>() {
             itemBinding.tvCorreo.text = lugar.correo
             itemBinding.tvTelefono.text = lugar.telefono
             itemBinding.tvWeb.text = lugar.web
-            itemBinding.vistaFila.setOnClickListener {
+
+            Glide.with(itemBinding.root)
+                .load(lugar.rutaAudio)
+                .circleCrop()
+                .into(itemBinding.imagen)
+
+            itemBinding.vistaFila.setOnClickListener{
                 val accion = LugarFragmentDirections
                     .actionNavLugarToUpdateLugarFragment(lugar)
                 itemView.findNavController().navigate(accion)
             }
         }
-        }
-
+    }
     //Acá se va a crear una "cajita" del reciclador...  una fila... sólo la estructura
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LugarViewHolder {
         val itemBinding =

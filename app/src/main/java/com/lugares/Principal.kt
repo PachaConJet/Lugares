@@ -3,6 +3,9 @@ package com.lugares
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.TextureView
+import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -10,7 +13,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.lugares.databinding.ActivityPrincipalBinding
@@ -28,7 +33,10 @@ class Principal : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarPrincipal.toolbar)
 
-
+        binding.appBarPrincipal.fab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+        }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_principal)
@@ -41,6 +49,24 @@ class Principal : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        actualiza(navView)
+    }
+
+    private fun actualiza(navView: NavigationView) {
+val vista: View = navView.getHeaderView(0)
+        val tvNombre: TextureView = vista.findViewById(R.id.tv_nombre)
+        val tvCorreo: TextureView = vista.findViewById(R.id.tv_correo)
+        val Imagen: ImageView = vista.findViewById(R.id.imagen)
+        val usuario = Firebase.auth.currentUser
+        tvNombre.text = usuario?.displayName
+        tvCorreo.text= usuario?.email
+        val foto = usuario?.photoUrl.toString()
+        if(foto.isNotEmpty()){
+            Glide.with(this)
+                .load(foto)
+                .cicleCrop()
+                .into(imagen)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
