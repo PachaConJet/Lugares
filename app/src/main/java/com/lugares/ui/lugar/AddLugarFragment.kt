@@ -1,6 +1,7 @@
 package com.lugares.ui.lugar
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -40,6 +41,7 @@ class AddLugarFragment : Fragment() {
     private lateinit var audioUtiles: AudioUtiles
 
     private lateinit var imagenUtiles: ImagenUtiles
+
     private lateinit var tomarFotoActivity: ActivityResultLauncher<Intent>
 
 
@@ -94,7 +96,7 @@ class AddLugarFragment : Fragment() {
             val imagenFile = imagenUtiles.imagenFile
             if (imagenFile != null && imagenFile.exists() && imagenFile.isFile && imagenFile.canRead()) {
                 var usuario = Firebase.auth.currentUser?.email
-                val rutaNube = "lugaresApp/${usuario}/imagenes/${imagenFile.name}"\
+                val rutaNube = "lugaresApp/${usuario}/imagenes/${imagenFile.name}"
 
                 val rutaLocal = Uri.fromFile(imagenFile)
 
@@ -121,7 +123,7 @@ class AddLugarFragment : Fragment() {
         val audioFile = audioUtiles.audioFile
         if(audioFile != null && audioFile.exists() && audioFile.isFile && audioFile.canRead()){
             var usuario= Firebase.auth.currentUser?.email
-            val rutaNube= "lugaresApp/${usuario}/audios/${audioFile.name}"\
+            val rutaNube= "lugaresApp/${usuario}/audios/${audioFile.name}";
 
             val rutaLocal = Uri.fromFile(audioFile)
 
@@ -143,6 +145,7 @@ class AddLugarFragment : Fragment() {
     }
 
 
+    @SuppressLint("MissingPermission")
     private fun ubicaGPS() {
         val ubicacion: FusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireContext())
@@ -182,7 +185,7 @@ class AddLugarFragment : Fragment() {
         val altura = binding.tvAltura.text.toString().toDouble()
 
         if (nombre.isNotEmpty()) { //Si puedo crear un lugar
-            val lugar= Lugar(0,nombre,correo,telefono,web,latitud,
+            val lugar= Lugar("",nombre,correo,telefono,web,latitud,
                 longitud,altura,rutaAudio,rutaImagen)
             lugarViewModel.addLugar(lugar)
             Toast.makeText(requireContext(),getString(R.string.msg_lugar_added),Toast.LENGTH_SHORT).show()

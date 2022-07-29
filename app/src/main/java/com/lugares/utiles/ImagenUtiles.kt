@@ -1,5 +1,4 @@
 package com.lugares.utiles
-
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -18,8 +17,7 @@ class ImagenUtiles(
     btPhoto: ImageButton,
     btRotaL: ImageButton,
     btRotaR: ImageButton,
-    private val imagen: ActivityResultLauncher<Intent>,
-    private var tomarFotoActivity: ActivityResultLauncher<Intent>
+    private val imagen: ActivityResultLauncher<Intent>
 ) {
     init {
         btPhoto.setOnClickListener { tomarFoto() }
@@ -28,7 +26,7 @@ class ImagenUtiles(
     }
 
     private var fotoTomada:Boolean = false
-    fun getFotoTomada(): Boolean{
+    fun getFotoTomada(): Boolean {
         return fotoTomada
     }
 
@@ -61,13 +59,14 @@ class ImagenUtiles(
         return image
     }
 
-    //se pone la foto ene l app
+    //Se pone la foto en el App
     fun actualizaFoto() {
         imagen.setImageBitmap(
             BitmapFactory.decodeFile(imagenFile.absolutePath))
-        fotoTomada = true
+        fotoTomada=true
     }
 }
+
 
 
 

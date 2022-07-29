@@ -75,27 +75,46 @@ class UpdateLugarFragment : Fragment() {
         }
 
 
-        binding.btUpdateLugar.setOnClickListener {
-            updateLugar()
-        }
+        binding.btUpdateLugar.setOnClickListener { updateLugar() }
 
-        binding.btEmail.setOnClickListener {
-            escribirCorreo()
-        }
+        binding.btEmail.setOnClickListener { escribirCorreo() }
 
-        binding.btPhone.setOnClickListener{
-            realizarLlamada()
-        }
+        binding.btPhone.setOnClickListener{ realizarLlamada()}
 
-        binding.btWeb.setOnClickListener{
-            verWeb()
-        }
-
-        
+        binding.btWeb.setOnClickListener{ verWeb() }
+        binding.btLocation.setOnClickListener{ verMapa() }
+        binding.btWhatsapp.setOnClickListener{ enviarWhatsApp() }
         //Se indicaque esta pantalla tiene un menu personalizado
         setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    private fun enviarWhatsApp(){
+        val telefono = binding.etTelefono.text
+        if(telefono.isNotEmpty()){
+            val intent = Intent (Intent.ACTION_VIEW)
+            val uri = "whatsapp://send?phone=506$telefono&text="+
+                    getString(R.string.msg_saludos)
+            intent.setPackage("com.whatsapp")
+            intent.data = Uri.parse(uri)
+            startActivity(intent)
+        }else{
+            Toast.makeText(requireContext(),getString(R.string.msg_datos),
+            Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun verMapa() {
+        val latitud = args.lugar.latitud
+        val longitud = args.lugar.longitud
+        if(latitud?.isFinite() == true  && longitud?.isFinite() == true){
+            val  location = Uri.parse("geo:$latitud,$longitud?z=18")
+            val intent = Intent(Intent.ACTION_VIEW,location)
+            startActivity(intent)
+        }else{
+            Toast.makeText(requireContext(),getString(R.string.msg_datos),
+            Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun verWeb() {

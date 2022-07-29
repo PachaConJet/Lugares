@@ -64,8 +64,8 @@ val vista: View = navView.getHeaderView(0)
         if(foto.isNotEmpty()){
             Glide.with(this)
                 .load(foto)
-                .cicleCrop()
-                .into(imagen)
+                .circleCrop()
+                .into(Imagen)
         }
     }
 
