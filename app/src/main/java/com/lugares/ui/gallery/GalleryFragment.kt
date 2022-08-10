@@ -97,8 +97,8 @@ class GalleryFragment : Fragment(),OnMapReadyCallback {
                 ), 105
             )
         } else {  //Si se tienen los permisos
-            var latitud = 0.0
-            var longitud = 0.0
+            var latitud = 9.97
+            var longitud = -84.0
             ubicacion.lastLocation.addOnSuccessListener { location: Location? ->
                 if (location != null) {
                     latitud = location.latitude
